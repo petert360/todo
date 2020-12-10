@@ -1,0 +1,62 @@
+/* alapbeállítások */
+
+html {
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* alapbeállítások vége */
+
+.main--style {
+    background-image: linear-gradient(rgb(14, 255, 183), rgb(0, 212, 255));
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 2rem;
+}
+
+.todo__container {
+    height: 35rem;
+    width: 28rem;
+    border-radius: 5px;
+    border: 1px solid rgb(238, 238, 238);
+    background-color: rgb(244, 247, 252);
+    display: flex;
+    flex-direction: column;
+}
+
+.date__section {
+    display: flex;
+    flex-direction: column;
+}
+
+.date__dayName{
+    font-size: 1.2rem;
+    color: rgb(230, 150, 158);
+    margin: 3rem 0 0 1rem;
+}
+.date__numericDate {
+    font-size: 1.2rem;
+    color: rgb(230, 150, 158);
+    margin: 0rem 2rem 0 1rem;
+}
