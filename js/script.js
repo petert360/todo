@@ -56,6 +56,13 @@ const dbHandler = {
             if (!item.done) num += 1;
         })
         return num;
+    },
+    // dbHandler.addTodo(obj)
+    // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
+    addTodo: function (todo) {
+        let todoObject = { todo: todo, done: false };
+        todoDB.unshift(todoObject);
+        localStorageHandler.store(todoDB);
     }
 }
 
@@ -89,12 +96,11 @@ function addBtnClickHandler() {
     if (!input) return;
     // inputElement törlése, ha bevitel megtörtént
     inputElement.value = '';
-    // ha lenyomom a gombot, egy timestampet rögzítek
-    let timestamp = Date.now();
-    console.log(timestamp);
-    // key=timestamp, value
-    return (timestamp, input);
+    dbHandler.addTodo(input);
+    displayPendingTodos();
 }
+
+
 
 
 /* --- JS INIT --- */
