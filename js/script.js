@@ -66,6 +66,36 @@ const dbHandler = {
     }
 }
 
+//dlBlistHandler - todo lista kezelő
+const dbListHandler = {
+    // displayToDoList() - a meglévő elemek kiírása
+    displayTodoList: function () {
+        todoDB.forEach(item => {
+            if (!item.done) {
+                const todoDiv = document.createElement('div');
+                todoDiv.className = 'todo__div'
+                const checkboxElement = document.createElement('input');
+                checkboxElement.type = 'checkbox';
+                checkboxElement.className = 'todo__checkbox';
+                const spanElement = document.createElement('span');
+                spanElement.className = 'todo__span';
+                spanElement.innerText = item.todo;
+                const btnElement = document.createElement('button');
+                btnElement.className = 'todo__button';
+                btnElement.innerText = '\u2716';
+                //btnElement.innerText = '\u211D';
+                todoListContainer.appendChild(todoDiv);
+                todoDiv.appendChild(checkboxElement);
+                todoDiv.appendChild(spanElement);
+                todoDiv.appendChild(btnElement);
+            };
+        });
+    },
+
+    addTodo: function (todo) {
+
+    },
+}
 // dateHandler - dátum kezelő objektum
 const dateHandler = {
     getCurrentDay: function () {
@@ -110,3 +140,4 @@ dateElement.innerHTML = dateHandler.getCurrentDate();
 
 // A pending elemek számának kiírása
 displayPendingTodos();  // ezt a konzultáció végéről ellenőrizni!!! - utolsó kép
+dbListHandler.displayTodoList();
