@@ -63,37 +63,23 @@ const dbHandler = {
         let todoObject = { todo: todo, done: false };
         todoDB.unshift(todoObject);
         localStorageHandler.store(todoDB);
+        dbListHandler.addToList(todoObject);
     }
 }
 
-//dlBlistHandler - todo lista kezelő
+//dbListHandler - todo lista kezelő
 const dbListHandler = {
     // displayToDoList() - a meglévő elemek kiírása
     displayTodoList: function () {
         todoDB.forEach(item => {
             if (!item.done) {
-                const todoDiv = document.createElement('div');
-                todoDiv.className = 'todo__div'
-                const checkboxElement = document.createElement('input');
-                checkboxElement.type = 'checkbox';
-                checkboxElement.className = 'todo__checkbox';
-                const spanElement = document.createElement('span');
-                spanElement.className = 'todo__span';
-                spanElement.innerText = item.todo;
-                const btnElement = document.createElement('button');
-                btnElement.className = 'todo__button';
-                btnElement.innerText = '\u2716';
-                //btnElement.innerText = '\u211D';
-                todoListContainer.appendChild(todoDiv);
-                todoDiv.appendChild(checkboxElement);
-                todoDiv.appendChild(spanElement);
-                todoDiv.appendChild(btnElement);
+                createListElement(item);
             };
         });
     },
 
-    addTodo: function (todo) {
-
+    addToList: function (todo) {
+        createListElement(todo);
     },
 }
 // dateHandler - dátum kezelő objektum
@@ -130,7 +116,24 @@ function addBtnClickHandler() {
     displayPendingTodos();
 }
 
-
+// a todo lista elemeinek létrehozása
+function createListElement(dbObject) {
+    const todoDiv = document.createElement('div');
+    todoDiv.className = 'todo__div'
+    const checkboxElement = document.createElement('input');
+    checkboxElement.type = 'checkbox';
+    checkboxElement.className = 'todo__checkbox';
+    const spanElement = document.createElement('span');
+    spanElement.className = 'todo__span';
+    spanElement.innerText = dbObject.todo;
+    const btnElement = document.createElement('button');
+    btnElement.className = 'todo__button';
+    btnElement.innerText = '\u2716';
+    todoListContainer.appendChild(todoDiv);
+    todoDiv.appendChild(checkboxElement);
+    todoDiv.appendChild(spanElement);
+    todoDiv.appendChild(btnElement);
+}
 
 
 /* --- JS INIT --- */
