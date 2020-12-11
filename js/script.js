@@ -77,10 +77,12 @@ todayElement.innerHTML = dateHandler.getCurrentDay();
 dateElement.innerHTML = dateHandler.getCurrentDate();
 
 // A pending elemek számának kiírása
+displayPendingTodos();
 
 // a todoDB-ből kiírja a pending státuszben lévő elememket
 function displayPendingTodos() {
-
+    let num = dbHandler.getNumberOfPending();
+    pendingDisplay.innerHTML = `You have ${num} pending items`;
 }
 
 // gomb lenyomására az input mező tartamát kiírjuk a console-ra
