@@ -2,21 +2,59 @@
 // dátum kezelés változói
 const todayElement = document.querySelector('.date__dayName');
 const dateElement = document.querySelector('.date__numericDate');
+const pendingDisplay = document.querySelector('.text__pending');
 
 // input mező és input gomb elemek kiválasztása és a gombra kettintás figyelése
-const buttonElement = document.querySelector('.add__button');
 const inputElement = document.querySelector('.add__input');
-buttonElement.addEventListener('click', clickHandler);
+const addBtnElement = document.querySelector('.add__button');
+addBtnElement.addEventListener('click', addBtnClickHandler);
 
-// todo JSON alapbeállítása 2 előre elkészített elemmel
-// olyan tömb, ami objektumokat tárol
+// DB változó: olyan tömb, ami objektumokat tárol
 // https://www.freecodecamp.org/news/javascript-array-of-objects-tutorial-how-to-create-update-and-loop-through-objects-using-js-array-methods/
 let todoDB = [
     { 'id': 0, 'todo': 'Go to codepen and get inspired', 'done': false },
     { 'id': 1, 'todo': 'Pick a project', 'done': false },
-    { 'id': 2, 'todo': 'Create a new pen', 'done': false },
+    { 'id': 2, 'todo': 'Create a new pen', 'done': true },
 ];
 
+// localStorageHandler - localStorage kezelő objektum
+const localStorageHandler = {
+    // localStorageHandler.store(database)
+    store: function (database) {
+        localStorage.setItem('todo', JSON.stringify(database));
+    },
+    // localStorageHandler.read(key)
+    read: function (key) {
+        const value = localStorage.getItem(key);
+        return JSON.parse(value);
+    },
+    // localStorageHandler.clear(key)
+    clear: function (key) {
+        localStorage.removeItem(key);
+    },
+}
+
+// dbHandler - DB kezelő objektum
+const dbHandler = {
+    // dbHandler.getNumberOfTodos return: num
+    getNumberOfTodos: function () {
+        let num = 0;
+        todoDB.forEach(item => {
+            num += 1;
+        })
+        return num;
+    },
+    // dbHandler.getNumberOfPending return: num
+    getNumberOfPending: function () {
+        let num = 0;
+        todoDB.forEach(item => {
+            if (!item.done) num += 1;
+        })
+        return num;
+    }
+}
+
+// dateHandler - dátum kezelő objektum
 const dateHandler = {
     getCurrentDay: function () {
         let now = new Date();
@@ -38,10 +76,15 @@ console.log(dateHandler.getCurrentDate());
 todayElement.innerHTML = dateHandler.getCurrentDay();
 dateElement.innerHTML = dateHandler.getCurrentDate();
 
+// A pending elemek számának kiírása
+
+// a todoDB-ből kiírja a pending státuszben lévő elememket
+function displayPendingTodos() {
+
+}
 
 // gomb lenyomására az input mező tartamát kiírjuk a console-ra
-
-function clickHandler() {
+function addBtnClickHandler() {
     input = inputElement.value;
     // ha üres a beviteli mező, nem történik semmi
     if (!input) return;
@@ -53,19 +96,3 @@ function clickHandler() {
     // key=timestamp, value
     return (timestamp, input);
 }
-
-// localStorage kezelő objektum
-const localStorageHandler = {
-    storeItem: function (database) {
-        localStorage.setItem('todo', JSON.stringify(database))
-    }
-}
-
-
-/* működés:
-induláskor beolvassa a LS-et: key: todo, value: JSON adat
-Ezt a todoDB változóban tárolja, ami egy objektumokat tartalmazó tömb:
-{ 'id': x=int, 'todo': str='', 'done': bool=boolean },
-
-
-*/
