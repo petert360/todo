@@ -56,8 +56,16 @@ const dbHandler = {
         localStorageHandler.store(todoDB);
         dbListHandler.addToList(todoObject);
     },
+    // dbHandler.deleteTodo(str)
+    // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
     deleteTodo: function (todo) {
-        
+        todoDB.forEach((item,index) => {
+            if (item.todo === todo) {
+                todoDB.splice(index,1);
+            }
+        })
+        localStorageHandler.store(todoDB);
+        displayPendingTodos();
     }
 }
 
@@ -110,26 +118,20 @@ function addBtnClickHandler() {
     inputElement.value = '';
 }
 
-function mouseLeaveDivHandler() {
-    document.querySelector('.testdiv').classList.remove('testdiv--alt');
-}
-
-
 // a todo lista elemeinek létrehozása
 function createListElement(dbObject) {
+    //let todo='';
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todo__div'
     todoDiv.addEventListener('mouseenter', ev => {
+        todo = ev.target.childNodes[1].innerText;
+        //console.log(todo)
         const selectedDeleteBtn = ev.target.lastChild;
-        selectedDeleteBtn.innerText = 'a'
-        selectedDeleteBtn.addEventListener('click' = {
-
-        })
-
+        selectedDeleteBtn.classList.add('todo__deleteButton--active')
     });
     todoDiv.addEventListener('mouseleave', ev => {
         const selectedDeleteBtn = ev.target.lastChild;
-        selectedDeleteBtn.innerText = 'x'
+        selectedDeleteBtn.classList.remove('todo__deleteButton--active')
 
     });
     const checkboxElement = document.createElement('input');
@@ -141,6 +143,14 @@ function createListElement(dbObject) {
     const deleteBtnElement = document.createElement('button');
     deleteBtnElement.className = 'todo__deleteButton';
     deleteBtnElement.innerText = '\u2716';
+    deleteBtnElement.addEventListener('click', (ev) => {
+        // delete todo from db
+        //console.log(todo);
+        let todo =ev.target.previousSibling.innerText;
+        ev.target.parentElement.remove();
+        dbHandler.deleteTodo(todo);
+    });
+
     // btnElement.addEventListener('click', deleteBtnClickHandler);
 
     todoListContainer.appendChild(todoDiv);

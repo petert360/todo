@@ -136,16 +136,14 @@ h1 {
     color: rgb(255, 255, 255);
     padding: .5rem;
     border: none;
-    background-color: rgb(245, 100, 104);
+    background-color: rgb(200, 200, 200);
     width: 2.5rem;
     font-size: 1rem;
 }
 
-.todo__deleteButton--animate {
-    background-color: rgb(100, 100, 104);
+.todo__deleteButton--active {
+    background-color: rgb(245, 100, 104);
 }
-
-
 
 @keyframes fadeIn {
     0% {
@@ -156,10 +154,10 @@ h1 {
     }
 }
 
-.testdiv{
+.testdiv {
     background-color: blue;
 }
 
-.testdiv--alt{
+.testdiv--alt {
     background-color: yellow;
 }
