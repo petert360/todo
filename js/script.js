@@ -1,4 +1,3 @@
-
 // dátum kezelés változói
 const todayElement = document.querySelector('.date__dayName');
 const dateElement = document.querySelector('.date__numericDate');
@@ -13,14 +12,6 @@ const todoListContainer = document.querySelector('.todoList__container');
 const inputElement = document.querySelector('.add__input');
 const addBtnElement = document.querySelector('.add__button');
 addBtnElement.addEventListener('click', addBtnClickHandler);
-
-// DB változó: olyan tömb, ami objektumokat tárol
-// https://www.freecodecamp.org/news/javascript-array-of-objects-tutorial-how-to-create-update-and-loop-through-objects-using-js-array-methods/
-let todoDB = [
-    { todo: 'Go to codepen and get inspired', done: false },
-    { todo: 'Pick a project', done: false },
-    { todo: 'Create a new pen', done: true },
-];
 
 // localStorageHandler - localStorage kezelő objektum
 const localStorageHandler = {
@@ -61,9 +52,12 @@ const dbHandler = {
     // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
     addTodo: function (todo) {
         let todoObject = { todo: todo, done: false };
-        todoDB.unshift(todoObject);
+        todoDB.push(todoObject);
         localStorageHandler.store(todoDB);
         dbListHandler.addToList(todoObject);
+    },
+    deleteTodo: function (todo) {
+        
     }
 }
 
@@ -116,23 +110,43 @@ function addBtnClickHandler() {
     inputElement.value = '';
 }
 
+function mouseLeaveDivHandler() {
+    document.querySelector('.testdiv').classList.remove('testdiv--alt');
+}
+
+
 // a todo lista elemeinek létrehozása
 function createListElement(dbObject) {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todo__div'
+    todoDiv.addEventListener('mouseenter', ev => {
+        const selectedDeleteBtn = ev.target.lastChild;
+        selectedDeleteBtn.innerText = 'a'
+        selectedDeleteBtn.addEventListener('click' = {
+
+        })
+
+    });
+    todoDiv.addEventListener('mouseleave', ev => {
+        const selectedDeleteBtn = ev.target.lastChild;
+        selectedDeleteBtn.innerText = 'x'
+
+    });
     const checkboxElement = document.createElement('input');
     checkboxElement.type = 'checkbox';
     checkboxElement.className = 'todo__checkbox';
     const spanElement = document.createElement('span');
     spanElement.className = 'todo__span';
     spanElement.innerText = dbObject.todo;
-    const btnElement = document.createElement('button');
-    btnElement.className = 'todo__button';
-    btnElement.innerText = '\u2716';
+    const deleteBtnElement = document.createElement('button');
+    deleteBtnElement.className = 'todo__deleteButton';
+    deleteBtnElement.innerText = '\u2716';
+    // btnElement.addEventListener('click', deleteBtnClickHandler);
+
     todoListContainer.appendChild(todoDiv);
     todoDiv.appendChild(checkboxElement);
     todoDiv.appendChild(spanElement);
-    todoDiv.appendChild(btnElement);
+    todoDiv.appendChild(deleteBtnElement);
 }
 
 
@@ -141,9 +155,23 @@ function createListElement(dbObject) {
 todayElement.innerHTML = dateHandler.getCurrentDay();
 dateElement.innerHTML = dateHandler.getCurrentDate();
 
+
+// DB változó: olyan tömb, ami objektumokat tárol
 // a LS-ban tárolt lista betöltése
 todoDB = localStorageHandler.read('todo');
 
-// A pending elemek számának kiírása
-displayPendingTodos();  // ezt a konzultáció végéről ellenőrizni!!! - utolsó kép
-dbListHandler.displayTodoList();
+if (todoDB != null && todoDB && Array.isArray(todoDB)) {
+    // A pending elemek számának kiírása
+    displayPendingTodos();
+    dbListHandler.displayTodoList();
+} else {
+    // https://www.freecodecamp.org/news/javascript-array-of-objects-tutorial-how-to-create-update-and-loop-through-objects-using-js-array-methods/
+    todoDB = [
+        { todo: 'Go to codepen and get inspired', done: false },
+        { todo: 'Pick a project', done: false },
+        { todo: 'Create a new pen', done: true },
+    ];
+    displayPendingTodos();
+    dbListHandler.displayTodoList();
+
+}
