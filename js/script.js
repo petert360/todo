@@ -2,7 +2,12 @@
 // dátum kezelés változói
 const todayElement = document.querySelector('.date__dayName');
 const dateElement = document.querySelector('.date__numericDate');
+
+// Pendig szövegmező változója
 const pendingDisplay = document.querySelector('.text__pending');
+
+// todo lista container változója
+const todoListContainer = document.querySelector('.todoList__container');
 
 // input mező és input gomb elemek kiválasztása és a gombra kettintás figyelése
 const inputElement = document.querySelector('.add__input');
@@ -12,9 +17,9 @@ addBtnElement.addEventListener('click', addBtnClickHandler);
 // DB változó: olyan tömb, ami objektumokat tárol
 // https://www.freecodecamp.org/news/javascript-array-of-objects-tutorial-how-to-create-update-and-loop-through-objects-using-js-array-methods/
 let todoDB = [
-    { 'id': 0, 'todo': 'Go to codepen and get inspired', 'done': false },
-    { 'id': 1, 'todo': 'Pick a project', 'done': false },
-    { 'id': 2, 'todo': 'Create a new pen', 'done': true },
+    { todo: 'Go to codepen and get inspired', done: false },
+    { todo: 'Pick a project', done: false },
+    { todo: 'Create a new pen', done: true },
 ];
 
 // localStorageHandler - localStorage kezelő objektum
@@ -71,14 +76,6 @@ const dateHandler = {
     },
 }
 
-// A dátum kiírása
-console.log(dateHandler.getCurrentDate());
-todayElement.innerHTML = dateHandler.getCurrentDay();
-dateElement.innerHTML = dateHandler.getCurrentDate();
-
-// A pending elemek számának kiírása
-displayPendingTodos();
-
 // a todoDB-ből kiírja a pending státuszben lévő elememket
 function displayPendingTodos() {
     let num = dbHandler.getNumberOfPending();
@@ -98,3 +95,12 @@ function addBtnClickHandler() {
     // key=timestamp, value
     return (timestamp, input);
 }
+
+
+/* --- JS INIT --- */
+// A dátum kiírása
+todayElement.innerHTML = dateHandler.getCurrentDay();
+dateElement.innerHTML = dateHandler.getCurrentDate();
+
+// A pending elemek számának kiírása
+displayPendingTodos();  // ezt a konzultáció végéről ellenőrizni!!! - utolsó kép
