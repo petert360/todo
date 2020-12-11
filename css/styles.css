@@ -29,15 +29,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 h1 {
     font-size: 2rem;
+    margin: 1rem 0;
 }
 
 .todo__container {
-    height: 35rem;
+    /*height: 35rem;*/
     width: 28rem;
     border-radius: 5px;
     border: 1px solid rgb(238, 238, 238);
@@ -75,7 +76,6 @@ h1 {
     font-style: italic;
     border-radius: 3px;
     border: 1px solid rgb(221, 221, 221);
-    transition: border ease-in .25s;
 }
 
 .add__input:focus {
@@ -108,7 +108,7 @@ h1 {
     color: rgb(0, 0, 0);
 }
 
-/* generált ToDo lista fotmázása*/
+/* generált ToDo lista formázása*/
 
 .todoList__container {
     margin-bottom: 2rem;
@@ -119,6 +119,7 @@ h1 {
     margin-bottom: .5rem;
     display: flex;
     align-items: center;
+    animation: fadeIn ease 1s;
 }
 
 .todo__checkbox {
@@ -138,4 +139,16 @@ h1 {
     background-color: rgb(245, 100, 104);
     width: 2.5rem;
     font-size: 1rem;
+    
+
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

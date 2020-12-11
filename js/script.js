@@ -111,9 +111,9 @@ function addBtnClickHandler() {
     // ha üres a beviteli mező, nem történik semmi
     if (!input) return;
     // inputElement törlése, ha bevitel megtörtént
-    inputElement.value = '';
     dbHandler.addTodo(input);
     displayPendingTodos();
+    inputElement.value = '';
 }
 
 // a todo lista elemeinek létrehozása
@@ -140,6 +140,9 @@ function createListElement(dbObject) {
 // A dátum kiírása
 todayElement.innerHTML = dateHandler.getCurrentDay();
 dateElement.innerHTML = dateHandler.getCurrentDate();
+
+// a LS-ban tárolt lista betöltése
+todoDB = localStorageHandler.read('todo');
 
 // A pending elemek számának kiírása
 displayPendingTodos();  // ezt a konzultáció végéről ellenőrizni!!! - utolsó kép
