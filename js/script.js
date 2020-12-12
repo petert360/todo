@@ -138,8 +138,8 @@ const dbHandler = {
             if (item.done === false) {
                 todoDB.splice(index, 1);
             }
-        })
-        localStorageHandler.store(todoDB);
+        });
+        todoListContainer.innerHTML = '';
         displayPendingTodos();
         displayCompletedTodos();
     },
@@ -214,6 +214,7 @@ function addBtnClickHandler() {
     dbHandler.addTodo(input);
     // displayPendingTodos();
     inputElement.value = '';
+    addBtnElement.classList.remove('add__button--active');
 }
 
 // gomb lenyomásására a completed list megjelenítése
