@@ -1,3 +1,6 @@
+// Completed Lista mutatás boolean változója
+let completedShown = false;
+
 // dátum kezelés változói
 const todayElement = document.querySelector('.date__dayName');
 const dateElement = document.querySelector('.date__numericDate');
@@ -9,12 +12,18 @@ const pendingDisplay = document.querySelector('.text__pending');
 const todoListContainer = document.querySelector('.todoList__container');
 
 // completed todo lista container változója
-const todoCompletedListContainer = document.querySelector('.todoCompletedList__container');
+const todoCompletedContainer = document.querySelector('.completed__section');
 
 // input mező és input gomb elemek kiválasztása és a gombra kettintás figyelése
 const inputElement = document.querySelector('.add__input');
 const addBtnElement = document.querySelector('.add__button');
 addBtnElement.addEventListener('click', addBtnClickHandler);
+
+
+// show Complete gomb eseményfigyelő
+const showBtnElement = document.querySelector('.show__button');
+showBtnElement.addEventListener('click', showBtnClickHandler);
+
 
 // localStorageHandler - localStorage kezelő objektum
 const localStorageHandler = {
@@ -144,10 +153,24 @@ function addBtnClickHandler() {
     inputElement.value = '';
 }
 
+
+// gomb lenyomásása a colmpleted list megjelenítése
+function showBtnClickHandler() {
+    if (completedShown) {
+        todoCompletedContainer.classList.remove('completed__section--show');
+        showBtnElement.innerText = 'show complete';
+        completedShown = false;
+    } else {
+        todoCompletedContainer.classList.add('completed__section--show');
+        showBtnElement.innerText = 'hide complete';
+        completedShown = true;
+    }
+}
+
 // Div elem generálása
-function createDiv() {
+function createDiv(divName) {
     const todoDiv = document.createElement('div');
-    todoDiv.className = 'todo__div'
+    todoDiv.className = divName;
     todoDiv.addEventListener('mouseenter', ev => {
         todo = ev.target.childNodes[1].innerText;
         const selectedDeleteBtn = ev.target.lastChild;
@@ -204,7 +227,7 @@ function createDeleteBtnElement() {
 // a todo lista elemeinek létrehozása
 function createListElement(dbObject) {
     // DIV
-    const todoDiv = createDiv();
+    const todoDiv = createDiv('todo__div');
     // CHECKBOX
     const checkboxElement = createCheckbox();
     // SPAN
@@ -249,5 +272,4 @@ if (todoDB != null && todoDB && Array.isArray(todoDB)) {
     ];
     displayPendingTodos();
     dbListHandler.displayTodoList();
-
 }

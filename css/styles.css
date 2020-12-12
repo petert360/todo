@@ -151,6 +151,10 @@ h1 {
     display: none;
 }
 
+.completed__section--show{
+    display: flex;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
