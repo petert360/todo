@@ -40,6 +40,7 @@ const dbHandler = {
         })
         return num;
     },
+
     // dbHandler.getNumberOfPending return: num
     getNumberOfPending: function () {
         let num = 0;
@@ -48,6 +49,7 @@ const dbHandler = {
         })
         return num;
     },
+
     // dbHandler.addTodo(obj)
     // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
     addTodo: function (todo) {
@@ -55,9 +57,12 @@ const dbHandler = {
         todoDB.push(todoObject);
         localStorageHandler.store(todoDB);
         dbListHandler.addToList(todoObject);
+        displayPendingTodos();
     },
+
     // dbHandler.deleteTodo(str)
     // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
+    // majd megjeleníti a pending aktuális értékét
     deleteTodo: function (todo) {
         todoDB.forEach((item, index) => {
             if (item.todo === todo) {
@@ -71,7 +76,7 @@ const dbHandler = {
 
 //dbListHandler - todo lista kezelő
 const dbListHandler = {
-    // displayToDoList() - a meglévő elemek kiírása
+    // displayToDoList() - a PENDING státusú elemek kiírása
     displayTodoList: function () {
         todoDB.forEach(item => {
             if (!item.done) {
@@ -79,11 +84,13 @@ const dbListHandler = {
             };
         });
     },
-
+    // addToList() - a PENDING listához hozzáadás
     addToList: function (todo) {
         createListElement(todo);
     },
 }
+
+
 // dateHandler - dátum kezelő objektum
 const dateHandler = {
     getCurrentDay: function () {
@@ -114,45 +121,57 @@ function addBtnClickHandler() {
     if (!input) return;
     // inputElement törlése, ha bevitel megtörtént
     dbHandler.addTodo(input);
-    displayPendingTodos();
+    // displayPendingTodos();
     inputElement.value = '';
 }
 
 // a todo lista elemeinek létrehozása
 function createListElement(dbObject) {
-    //let todo='';
+    // DIV
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todo__div'
     todoDiv.addEventListener('mouseenter', ev => {
         todo = ev.target.childNodes[1].innerText;
-        //console.log(todo)
         const selectedDeleteBtn = ev.target.lastChild;
         selectedDeleteBtn.classList.add('todo__deleteButton--active')
     });
     todoDiv.addEventListener('mouseleave', ev => {
         const selectedDeleteBtn = ev.target.lastChild;
         selectedDeleteBtn.classList.remove('todo__deleteButton--active')
-
     });
+
+    // CHECKBOX
     const checkboxElement = document.createElement('input');
     checkboxElement.type = 'checkbox';
     checkboxElement.className = 'todo__checkbox';
+    checkboxElement.addEventListener('click', ev => {
+        if (checkboxElement.checked === true) {
+            let todo = ev.target.nextSibling.innerText;
+            console.log(todo);
+            document.querySelector('.testdiv').classList.add('testdiv--alt');
+        } else {
+            document.querySelector('.testdiv').classList.remove('testdiv--alt');
+        }
+    });
+
+    // SPAN
     const spanElement = document.createElement('span');
     spanElement.className = 'todo__span';
     spanElement.innerText = dbObject.todo;
+
+    // DELETEBTN
     const deleteBtnElement = document.createElement('button');
     deleteBtnElement.className = 'todo__deleteButton';
     deleteBtnElement.innerText = '\u2716';
     deleteBtnElement.addEventListener('click', (ev) => {
         // delete todo from db
-        //console.log(todo);
         let todo = ev.target.previousSibling.innerText;
         ev.target.parentElement.remove();
         dbHandler.deleteTodo(todo);
     });
 
-    // btnElement.addEventListener('click', deleteBtnClickHandler);
 
+    // ELEMEK LÉTREHOZÁSA
     todoListContainer.appendChild(todoDiv);
     todoDiv.appendChild(checkboxElement);
     todoDiv.appendChild(spanElement);

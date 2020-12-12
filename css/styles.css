@@ -155,9 +155,9 @@ h1 {
 }
 
 .testdiv {
-    background-color: blue;
+    background-color: lightgreen;
 }
 
 .testdiv--alt {
-    background-color: yellow;
+    background-color: blue;
 }
