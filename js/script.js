@@ -1,5 +1,5 @@
 // Completed Lista mutatás boolean változója
-let completedShown = true;
+let completedShown = false;
 
 // dátum kezelés változói
 const todayElement = document.querySelector('.date__dayName');
@@ -11,7 +11,6 @@ const pendingDisplay = document.querySelector('.text__pending');
 // Pendig szövegmező változója
 const completedDisplay = document.querySelector('.text__completed');
 
-
 // todo lista container változója
 const todoListContainer = document.querySelector('.todoList__container');
 
@@ -20,12 +19,17 @@ const todoCompletedContainer = document.querySelector('.completed__section');
 
 // input mező és input gomb elemek kiválasztása és a gombra kettintás figyelése
 const inputElement = document.querySelector('.add__input');
+inputElement.addEventListener('input', inputElementInput);
 const addBtnElement = document.querySelector('.add__button');
 addBtnElement.addEventListener('click', addBtnClickHandler);
 
-// show Complete gomb eseményfigyelő
+// Show/Hide complete gomb eseményfigyelő
 const showBtnElement = document.querySelector('.show__button');
 showBtnElement.addEventListener('click', showBtnClickHandler);
+
+// Clear all gomb eseményfigyelő
+const clearAllBtnElemnt = document.querySelector('.clear__button');
+clearAllBtnElemnt.addEventListener('click', clearAllBtnClickHandler);
 
 // localStorageHandler - localStorage kezelő objektum
 const localStorageHandler = {
@@ -125,7 +129,20 @@ const dbHandler = {
         localStorageHandler.store(todoDB);
         displayPendingTodos();
         displayCompletedTodos();
-    }
+    },
+
+    // dbHandler.clearPendingTodo
+    // a PENDING todo elemek törlése
+    clearPendingTodo: function () {
+        todoDB.forEach((item, index) => {
+            if (item.done === false) {
+                todoDB.splice(index, 1);
+            }
+        })
+        localStorageHandler.store(todoDB);
+        displayPendingTodos();
+        displayCompletedTodos();
+    },
 }
 
 //dbListHandler - todo lista kezelő
@@ -149,7 +166,6 @@ const dbListHandler = {
         createCompletedListElement(todo);
     },
 }
-
 
 // dateHandler - dátum kezelő objektum
 const dateHandler = {
@@ -180,6 +196,14 @@ function displayCompletedTodos() {
     completedDisplay.innerHTML = `You have ${num} completed items`;
 }
 
+// az input mezőbe íráskor akívvá válik az input gomb
+function inputElementInput() {
+    if (inputElement.value === '') {
+        addBtnElement.classList.remove('add__button--active');
+    } else {
+        addBtnElement.classList.add('add__button--active');
+    }
+}
 
 // gomb lenyomására az input mező tartamát kiírjuk a console-ra
 function addBtnClickHandler() {
@@ -192,8 +216,7 @@ function addBtnClickHandler() {
     inputElement.value = '';
 }
 
-
-// gomb lenyomásása a completed list megjelenítése
+// gomb lenyomásására a completed list megjelenítése
 function showBtnClickHandler() {
     if (completedShown) {
         todoCompletedContainer.classList.remove('completed__section--show');
@@ -204,6 +227,10 @@ function showBtnClickHandler() {
         showBtnElement.innerText = 'Hide complete';
         completedShown = true;
     }
+}
+
+function clearAllBtnClickHandler() {
+    dbHandler.clearPendingTodo();
 }
 
 // Div elem generálása
@@ -260,7 +287,6 @@ function createCompletedSpan(dbObject) {
     spanElement.innerText = dbObject.todo;
     return spanElement;
 }
-
 
 // Span elem generálása
 function createDeleteBtnElement() {
