@@ -108,12 +108,9 @@ h1 {
     margin-bottom: 1rem;
 }
 
-.text__pending {
+.text__pending, .text__completed {
     color: rgb(0, 0, 0);
-}
-
-.text__completed {
-    color: rgb(0, 0, 0);
+    margin-bottom: .5rem;
 }
 
 /* generált ToDo lista formázása*/
@@ -148,10 +145,11 @@ h1 {
     background-image: url(../img/fa_trash.svg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 50%;
+    background-size: 40%;
     width: 2.5rem;
     font-size: 1rem;
     cursor: pointer;
+    transition: all ease-in 0.25s; 
 }
 
 .todo__deleteButton--active {
