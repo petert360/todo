@@ -71,6 +71,19 @@ const dbHandler = {
         })
         localStorageHandler.store(todoDB);
         displayPendingTodos();
+    },
+
+    //  dbHandler.completeTodo(str)
+    // megkeresi a tömb elemei között a megadott stringet és annak az elemnek
+    // a done állapotát true-ra állítja, majd tárol és megjelenít
+    completeTodo: function (todo) {
+        todoDB.forEach((item, index) => {
+            if (item.todo === todo) {
+                todoDB[index].done = true;
+            }
+        })
+        localStorageHandler.store(todoDB);
+        displayPendingTodos();
     }
 }
 
@@ -147,8 +160,8 @@ function createListElement(dbObject) {
     checkboxElement.addEventListener('click', ev => {
         if (checkboxElement.checked === true) {
             let todo = ev.target.nextSibling.innerText;
-            console.log(todo);
-            document.querySelector('.testdiv').classList.add('testdiv--alt');
+            ev.target.parentElement.remove();
+            dbHandler.completeTodo(todo);
         } else {
             document.querySelector('.testdiv').classList.remove('testdiv--alt');
         }
