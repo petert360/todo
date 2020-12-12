@@ -362,4 +362,5 @@ if (todoDB != null && todoDB && Array.isArray(todoDB)) {
     displayPendingTodos();
     displayCompletedTodos();
     dbListHandler.displayTodoList();
+    localStorageHandler.store(todoDB);
 }
