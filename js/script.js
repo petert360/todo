@@ -8,6 +8,9 @@ const pendingDisplay = document.querySelector('.text__pending');
 // todo lista container változója
 const todoListContainer = document.querySelector('.todoList__container');
 
+// completed todo lista container változója
+const todoCompletedListContainer = document.querySelector('.todoCompletedList__container');
+
 // input mező és input gomb elemek kiválasztása és a gombra kettintás figyelése
 const inputElement = document.querySelector('.add__input');
 const addBtnElement = document.querySelector('.add__button');
@@ -94,7 +97,10 @@ const dbListHandler = {
         todoDB.forEach(item => {
             if (!item.done) {
                 createListElement(item);
-            };
+            } else {
+                createCompletedListElement(item);
+            }
+
         });
     },
     // addToList() - a PENDING listához hozzáadás
@@ -138,9 +144,8 @@ function addBtnClickHandler() {
     inputElement.value = '';
 }
 
-// a todo lista elemeinek létrehozása
-function createListElement(dbObject) {
-    // DIV
+// Div elem generálása
+function createDiv() {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todo__div'
     todoDiv.addEventListener('mouseenter', ev => {
@@ -152,6 +157,24 @@ function createListElement(dbObject) {
         const selectedDeleteBtn = ev.target.lastChild;
         selectedDeleteBtn.classList.remove('todo__deleteButton--active')
     });
+    return todoDiv;
+}
+
+// a todo lista elemeinek létrehozása
+function createListElement(dbObject) {
+    // DIV
+    /*const todoDiv = document.createElement('div');
+    todoDiv.className = 'todo__div'
+    todoDiv.addEventListener('mouseenter', ev => {
+        todo = ev.target.childNodes[1].innerText;
+        const selectedDeleteBtn = ev.target.lastChild;
+        selectedDeleteBtn.classList.add('todo__deleteButton--active')
+    });
+    todoDiv.addEventListener('mouseleave', ev => {
+        const selectedDeleteBtn = ev.target.lastChild;
+        selectedDeleteBtn.classList.remove('todo__deleteButton--active')
+    });*/
+    const todoDiv = createDiv();
 
     // CHECKBOX
     const checkboxElement = document.createElement('input');
@@ -162,9 +185,10 @@ function createListElement(dbObject) {
             let todo = ev.target.nextSibling.innerText;
             ev.target.parentElement.remove();
             dbHandler.completeTodo(todo);
-        } else {
-            document.querySelector('.testdiv').classList.remove('testdiv--alt');
         }
+        else {
+            document.querySelector('.testdiv').classList.remove('testdiv--alt');
+        };
     });
 
     // SPAN
@@ -191,6 +215,12 @@ function createListElement(dbObject) {
     todoDiv.appendChild(deleteBtnElement);
 }
 
+function createCompletedListElement(dbObject) {
+    /*    todoListContainer.appendChild(todoDiv);
+        todoDiv.appendChild(checkboxElement);
+        todoDiv.appendChild(spanElement);
+        todoDiv.appendChild(deleteBtnElement);*/
+}
 
 /* --- JS INIT --- */
 // A dátum kiírása
