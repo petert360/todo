@@ -59,9 +59,9 @@ const dbHandler = {
     // dbHandler.deleteTodo(str)
     // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
     deleteTodo: function (todo) {
-        todoDB.forEach((item,index) => {
+        todoDB.forEach((item, index) => {
             if (item.todo === todo) {
-                todoDB.splice(index,1);
+                todoDB.splice(index, 1);
             }
         })
         localStorageHandler.store(todoDB);
@@ -146,7 +146,7 @@ function createListElement(dbObject) {
     deleteBtnElement.addEventListener('click', (ev) => {
         // delete todo from db
         //console.log(todo);
-        let todo =ev.target.previousSibling.innerText;
+        let todo = ev.target.previousSibling.innerText;
         ev.target.parentElement.remove();
         dbHandler.deleteTodo(todo);
     });
