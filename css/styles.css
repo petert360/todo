@@ -70,7 +70,6 @@ h1 {
     font-size: 1rem;
     text-indent: 1rem;
     height: 2.5rem;
-    font-style: italic;
     border-radius: 3px;
     border: 1px solid rgb(221, 221, 221);
 }
@@ -81,6 +80,7 @@ h1 {
 }
 
 .add__input::placeholder {
+    font-style: italic;
     color: rgba(180, 180, 179, .7);
 }
 
