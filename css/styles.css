@@ -108,11 +108,11 @@ h1 {
     color: rgb(0, 0, 0);
 }
 
-/* generált ToDo lista formázása*/
-
-.todoList__container {
-    margin-bottom: 2rem;
+.text__completed {
+    color: rgb(0, 0, 0);
 }
+
+/* generált ToDo lista formázása*/
 
 .todo__div {
     background-color: rgb(224, 232, 245);
@@ -151,10 +151,50 @@ h1 {
     display: none;
 }
 
-.completed__section--show{
+.completed__section--show {
     display: flex;
+    flex-direction: column;
 }
 
+
+.todoCompleted__div {
+    background-color: rgb(224, 232, 245);
+    margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    animation: fadeIn ease 1s;
+}
+.todoCompleted__span {
+    text-decoration: line-through;
+    color: rgb(0, 0, 0);
+    flex: 1 0 auto;
+}
+
+.todo__checkbox {
+    margin: 0 .8rem;
+    cursor: pointer;
+}
+
+
+/* Footer gombok beállításai*/
+.footer__buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.show__button, .clear__button{
+    width: 7rem;
+    padding: .5rem;
+    border: none;
+    margin: 0 .5rem;
+}
+
+.show__button:hover, .clear__button:hover{
+    border-bottom: 1px solid;
+}
+
+/* Animáció beállítások*/
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -162,12 +202,4 @@ h1 {
     100% {
         opacity: 1;
     }
-}
-
-.testdiv {
-    background-color: lightgreen;
-}
-
-.testdiv--alt {
-    background-color: blue;
 }

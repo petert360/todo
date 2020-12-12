@@ -1,5 +1,5 @@
 // Completed Lista mutatás boolean változója
-let completedShown = false;
+let completedShown = true;
 
 // dátum kezelés változói
 const todayElement = document.querySelector('.date__dayName');
@@ -7,6 +7,10 @@ const dateElement = document.querySelector('.date__numericDate');
 
 // Pendig szövegmező változója
 const pendingDisplay = document.querySelector('.text__pending');
+
+// Pendig szövegmező változója
+const completedDisplay = document.querySelector('.text__completed');
+
 
 // todo lista container változója
 const todoListContainer = document.querySelector('.todoList__container');
@@ -19,11 +23,9 @@ const inputElement = document.querySelector('.add__input');
 const addBtnElement = document.querySelector('.add__button');
 addBtnElement.addEventListener('click', addBtnClickHandler);
 
-
 // show Complete gomb eseményfigyelő
 const showBtnElement = document.querySelector('.show__button');
 showBtnElement.addEventListener('click', showBtnClickHandler);
-
 
 // localStorageHandler - localStorage kezelő objektum
 const localStorageHandler = {
@@ -62,6 +64,14 @@ const dbHandler = {
         return num;
     },
 
+    getNumberOfCompleted: function () {
+        let num = 0;
+        todoDB.forEach(item => {
+            if (item.done) num += 1;
+        })
+        return num;
+    },
+
     // dbHandler.addTodo(obj)
     // hozzáadja a todoDB-hez és tárolja a localStorage-ben a változást
     addTodo: function (todo) {
@@ -83,6 +93,7 @@ const dbHandler = {
         })
         localStorageHandler.store(todoDB);
         displayPendingTodos();
+        displayCompletedTodos();
     },
 
     //  dbHandler.completeTodo(str)
@@ -92,10 +103,28 @@ const dbHandler = {
         todoDB.forEach((item, index) => {
             if (item.todo === todo) {
                 todoDB[index].done = true;
+                dbListHandler.addToCompletedList(todoDB[index]);
             }
         })
         localStorageHandler.store(todoDB);
         displayPendingTodos();
+        displayCompletedTodos();
+    },
+
+    // dbHandler.unCompleteTodo(str)
+    // megkeresi a tömb elemei között a megadott stringet és annak az elemnek
+    // a done állapotát false-ra állítja, majd tárol és megjelenít
+
+    unCompleteTodo: function (todo) {
+        todoDB.forEach((item, index) => {
+            if (item.todo === todo) {
+                todoDB[index].done = false;
+                dbListHandler.addToList(todoDB[index]);
+            }
+        })
+        localStorageHandler.store(todoDB);
+        displayPendingTodos();
+        displayCompletedTodos();
     }
 }
 
@@ -109,12 +138,15 @@ const dbListHandler = {
             } else {
                 createCompletedListElement(item);
             }
-
         });
     },
     // addToList() - a PENDING listához hozzáadás
     addToList: function (todo) {
         createListElement(todo);
+    },
+    // addToCompletedList() - a COMPLETED listához hozzáadás
+    addToCompletedList: function (todo) {
+        createCompletedListElement(todo);
     },
 }
 
@@ -142,6 +174,13 @@ function displayPendingTodos() {
     pendingDisplay.innerHTML = `You have ${num} pending items`;
 }
 
+// a todoDB-ből kiírja a completed státuszben lévő elememket
+function displayCompletedTodos() {
+    let num = dbHandler.getNumberOfCompleted();
+    completedDisplay.innerHTML = `You have ${num} completed items`;
+}
+
+
 // gomb lenyomására az input mező tartamát kiírjuk a console-ra
 function addBtnClickHandler() {
     input = inputElement.value;
@@ -154,7 +193,7 @@ function addBtnClickHandler() {
 }
 
 
-// gomb lenyomásása a colmpleted list megjelenítése
+// gomb lenyomásása a completed list megjelenítése
 function showBtnClickHandler() {
     if (completedShown) {
         todoCompletedContainer.classList.remove('completed__section--show');
@@ -184,9 +223,12 @@ function createDiv(divName) {
 }
 
 // Checkbox elem generálása
-function createCheckbox() {
+function createCheckbox(dbObject) {
     const checkboxElement = document.createElement('input');
     checkboxElement.type = 'checkbox';
+    if (dbObject.done) {
+        checkboxElement.checked = true;
+    }
     checkboxElement.className = 'todo__checkbox';
     checkboxElement.addEventListener('click', ev => {
         if (checkboxElement.checked === true) {
@@ -195,7 +237,9 @@ function createCheckbox() {
             dbHandler.completeTodo(todo);
         }
         else {
-            document.querySelector('.testdiv').classList.remove('testdiv--alt');
+            let todo = ev.target.nextSibling.innerText;
+            ev.target.parentElement.remove();
+            dbHandler.unCompleteTodo(todo);
         };
     });
     return checkboxElement;
@@ -205,6 +249,14 @@ function createCheckbox() {
 function createSpan(dbObject) {
     const spanElement = document.createElement('span');
     spanElement.className = 'todo__span';
+    spanElement.innerText = dbObject.todo;
+    return spanElement;
+}
+
+// Áthúzott Span elem generálása
+function createCompletedSpan(dbObject) {
+    const spanElement = document.createElement('span');
+    spanElement.className = 'todoCompleted__span';
     spanElement.innerText = dbObject.todo;
     return spanElement;
 }
@@ -229,7 +281,7 @@ function createListElement(dbObject) {
     // DIV
     const todoDiv = createDiv('todo__div');
     // CHECKBOX
-    const checkboxElement = createCheckbox();
+    const checkboxElement = createCheckbox(dbObject);
     // SPAN
     const spanElement = createSpan(dbObject);
     // DELETEBTN
@@ -243,17 +295,25 @@ function createListElement(dbObject) {
 }
 
 function createCompletedListElement(dbObject) {
-    /*    todoListContainer.appendChild(todoDiv);
-        todoDiv.appendChild(checkboxElement);
-        todoDiv.appendChild(spanElement);
-        todoDiv.appendChild(deleteBtnElement);*/
+    // DIV
+    const todoCompletedDiv = createDiv('todoCompleted__div');
+    // CHECKBOX
+    const checkboxElement = createCheckbox(dbObject);
+    // SPAN
+    const spanElement = createCompletedSpan(dbObject);
+    // DELETEBTN
+    const deleteBtnElement = createDeleteBtnElement();
+
+    todoCompletedContainer.appendChild(todoCompletedDiv);
+    todoCompletedDiv.appendChild(checkboxElement);
+    todoCompletedDiv.appendChild(spanElement);
+    todoCompletedDiv.appendChild(deleteBtnElement);
 }
 
 /* --- JS INIT --- */
 // A dátum kiírása
 todayElement.innerHTML = dateHandler.getCurrentDay();
 dateElement.innerHTML = dateHandler.getCurrentDate();
-
 
 // DB változó: olyan tömb, ami objektumokat tárol
 // a LS-ban tárolt lista betöltése
@@ -262,6 +322,7 @@ todoDB = localStorageHandler.read('todo');
 if (todoDB != null && todoDB && Array.isArray(todoDB)) {
     // A pending elemek számának kiírása
     displayPendingTodos();
+    displayCompletedTodos();
     dbListHandler.displayTodoList();
 } else {
     // https://www.freecodecamp.org/news/javascript-array-of-objects-tutorial-how-to-create-update-and-loop-through-objects-using-js-array-methods/
@@ -271,5 +332,6 @@ if (todoDB != null && todoDB && Array.isArray(todoDB)) {
         { todo: 'Create a new pen', done: true },
     ];
     displayPendingTodos();
+    displayCompletedTodos();
     dbListHandler.displayTodoList();
 }
