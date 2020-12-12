@@ -134,12 +134,13 @@ const dbHandler = {
     // dbHandler.clearPendingTodo
     // a PENDING todo elemek törlése
     clearPendingTodo: function () {
-        todoDB.forEach((item, index) => {
-            if (item.done === false) {
-                todoDB.splice(index, 1);
-            }
-        });
+        for (let i = todoDB.length - 1; i >= 0; i -= 1) {
+            if (!todoDB[i].done) {
+                todoDB.splice(i, 1);
+            } 
+        }
         todoListContainer.innerHTML = '';
+        localStorageHandler.store(todoDB);
         displayPendingTodos();
         displayCompletedTodos();
     },

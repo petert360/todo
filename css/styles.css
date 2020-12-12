@@ -77,6 +77,7 @@ h1 {
 .add__input:focus {
     outline: none;
     border: 1px solid #a3b1ff;
+    transition: border .3s;
 }
 
 .add__input::placeholder {
@@ -98,6 +99,7 @@ h1 {
 
 .add__button--active{
     background-color: rgb(102, 100, 255);
+    transition: background-color .3s;
 }
 
 /* Pending kiírás fromázása*/
