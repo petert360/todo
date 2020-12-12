@@ -197,11 +197,11 @@ function addBtnClickHandler() {
 function showBtnClickHandler() {
     if (completedShown) {
         todoCompletedContainer.classList.remove('completed__section--show');
-        showBtnElement.innerText = 'show complete';
+        showBtnElement.innerText = 'Show complete';
         completedShown = false;
     } else {
         todoCompletedContainer.classList.add('completed__section--show');
-        showBtnElement.innerText = 'hide complete';
+        showBtnElement.innerText = 'Hide complete';
         completedShown = true;
     }
 }

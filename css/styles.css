@@ -21,11 +21,13 @@ body {
 .main--style {
     /*background-image: linear-gradient(rgb(14, 255, 183), rgb(0, 212, 255));*/
     background-image: linear-gradient(rgb(251, 107, 72), rgb(239, 80, 128));
-    position: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    /*position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 0;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,6 +97,8 @@ h1 {
     background-color: rgb(221, 221, 221);
     color: rgb(255, 255, 255);
     font-size: 1.6rem;
+    cursor: pointer;
+    outline:none;
 }
 
 /* Pending kiírás fromázása*/
@@ -139,6 +143,7 @@ h1 {
     background-color: rgb(200, 200, 200);
     width: 2.5rem;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .todo__deleteButton--active {
@@ -156,7 +161,6 @@ h1 {
     flex-direction: column;
 }
 
-
 .todoCompleted__div {
     background-color: rgb(224, 232, 245);
     margin-bottom: .5rem;
@@ -164,6 +168,7 @@ h1 {
     align-items: center;
     animation: fadeIn ease 1s;
 }
+
 .todoCompleted__span {
     text-decoration: line-through;
     color: rgb(0, 0, 0);
@@ -175,26 +180,33 @@ h1 {
     cursor: pointer;
 }
 
-
 /* Footer gombok beállításai*/
-.footer__buttons{
+
+.footer__buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.show__button, .clear__button{
-    width: 7rem;
+.show__button, .clear__button {
+    font-weight: bold;
+    font-size: .9rem;
+    cursor: pointer;
+    width: 8rem;
     padding: .5rem;
     border: none;
     margin: 0 .5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px solid rgba(0, 0, 0, 0);
+    outline:none;
 }
 
-.show__button:hover, .clear__button:hover{
-    border-bottom: 1px solid;
+.show__button:hover, .clear__button:hover {
+    border-bottom: 3px solid;
 }
 
 /* Animáció beállítások*/
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
