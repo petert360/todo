@@ -239,7 +239,7 @@ function clearAllBtnClickHandler() {
 function createDiv(divName) {
     const todoDiv = document.createElement('div');
     todoDiv.className = divName;
-    todoDiv.addEventListener('mouseenter', ev => {
+/*    todoDiv.addEventListener('mouseenter', ev => {
         todo = ev.target.childNodes[1].innerText;
         const selectedDeleteBtn = ev.target.lastChild;
         selectedDeleteBtn.classList.add('todo__deleteButton--active')
@@ -247,7 +247,7 @@ function createDiv(divName) {
     todoDiv.addEventListener('mouseleave', ev => {
         const selectedDeleteBtn = ev.target.lastChild;
         selectedDeleteBtn.classList.remove('todo__deleteButton--active')
-    });
+    });*/
     return todoDiv;
 }
 

@@ -124,6 +124,11 @@ h1 {
     height: 2.5rem;
 }
 
+.todoCompleted__div:hover .todo__deleteButton, .todo__div:hover .todo__deleteButton {
+    width: 2.5rem;
+    background-size: 1rem;
+}
+
 .todo__checkbox {
     margin: 0 .8rem;
     cursor: pointer;
@@ -139,24 +144,18 @@ h1 {
 
 .todo__deleteButton {
     color: rgb(255, 255, 255);
-    padding: .5rem;
     border: none;
-    background-color: rgb(200, 200, 200);
     background-image: url(../img/fa_trash.svg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 40%;
-    width: 2.5rem;
+    background-size: 0rem;
+    /*width: 2.5rem;*/
+    width: 0rem;
     font-size: 1rem;
     cursor: pointer;
-    transition: all ease-in 0.25s; 
-}
-
-.todo__deleteButton--active {
+    transition: all ease-in 0.2s;
     background-color: rgb(245, 100, 104);
 }
-
-/* generált Completed ToDo lista formázása*/
 
 .completed__section {
     display: none;
@@ -182,7 +181,6 @@ h1 {
     flex: 1 0 auto;
     display: inline-flex;
     align-items: center;
-
 }
 
 .todo__checkbox {
