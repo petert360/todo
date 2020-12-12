@@ -145,6 +145,12 @@ h1 {
     background-color: rgb(245, 100, 104);
 }
 
+/* generált Completed ToDo lista formázása*/
+
+.completed__section {
+    display: none;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

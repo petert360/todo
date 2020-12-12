@@ -160,23 +160,8 @@ function createDiv() {
     return todoDiv;
 }
 
-// a todo lista elemeinek létrehozása
-function createListElement(dbObject) {
-    // DIV
-    /*const todoDiv = document.createElement('div');
-    todoDiv.className = 'todo__div'
-    todoDiv.addEventListener('mouseenter', ev => {
-        todo = ev.target.childNodes[1].innerText;
-        const selectedDeleteBtn = ev.target.lastChild;
-        selectedDeleteBtn.classList.add('todo__deleteButton--active')
-    });
-    todoDiv.addEventListener('mouseleave', ev => {
-        const selectedDeleteBtn = ev.target.lastChild;
-        selectedDeleteBtn.classList.remove('todo__deleteButton--active')
-    });*/
-    const todoDiv = createDiv();
-
-    // CHECKBOX
+// Checkbox elem generálása
+function createCheckbox() {
     const checkboxElement = document.createElement('input');
     checkboxElement.type = 'checkbox';
     checkboxElement.className = 'todo__checkbox';
@@ -190,13 +175,20 @@ function createListElement(dbObject) {
             document.querySelector('.testdiv').classList.remove('testdiv--alt');
         };
     });
+    return checkboxElement;
+}
 
-    // SPAN
+// Span elem generálása
+function createSpan(dbObject) {
     const spanElement = document.createElement('span');
     spanElement.className = 'todo__span';
     spanElement.innerText = dbObject.todo;
+    return spanElement;
+}
 
-    // DELETEBTN
+
+// Span elem generálása
+function createDeleteBtnElement() {
     const deleteBtnElement = document.createElement('button');
     deleteBtnElement.className = 'todo__deleteButton';
     deleteBtnElement.innerText = '\u2716';
@@ -206,7 +198,19 @@ function createListElement(dbObject) {
         ev.target.parentElement.remove();
         dbHandler.deleteTodo(todo);
     });
+    return deleteBtnElement;
+}
 
+// a todo lista elemeinek létrehozása
+function createListElement(dbObject) {
+    // DIV
+    const todoDiv = createDiv();
+    // CHECKBOX
+    const checkboxElement = createCheckbox();
+    // SPAN
+    const spanElement = createSpan(dbObject);
+    // DELETEBTN
+    const deleteBtnElement = createDeleteBtnElement();
 
     // ELEMEK LÉTREHOZÁSA
     todoListContainer.appendChild(todoDiv);
