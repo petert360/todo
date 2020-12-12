@@ -19,7 +19,6 @@ body {
 /* alapbeállítások vége */
 
 .main--style {
-    /*background-image: linear-gradient(rgb(14, 255, 183), rgb(0, 212, 255));*/
     background-image: linear-gradient(rgb(251, 107, 72), rgb(239, 80, 128));
     background-size: cover;
     min-height: 100vh;
@@ -94,10 +93,10 @@ h1 {
     color: rgb(255, 255, 255);
     font-size: 1.6rem;
     cursor: pointer;
-    outline:none;
+    outline: none;
 }
 
-.add__button--active{
+.add__button--active {
     background-color: rgb(102, 100, 255);
     transition: background-color .3s;
 }
@@ -123,18 +122,22 @@ h1 {
     background-color: rgb(224, 232, 245);
     margin-bottom: .5rem;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     animation: fadeIn ease 1s;
+    height: 2.5rem;
 }
 
 .todo__checkbox {
     margin: 0 .8rem;
     cursor: pointer;
+    align-self: center;
 }
 
 .todo__span {
     color: rgb(0, 0, 0);
     flex: 1 0 auto;
+    display: inline-flex;
+    align-items: center;
 }
 
 .todo__deleteButton {
@@ -142,6 +145,10 @@ h1 {
     padding: .5rem;
     border: none;
     background-color: rgb(200, 200, 200);
+    background-image: url(../img/fa_trash.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
     width: 2.5rem;
     font-size: 1rem;
     cursor: pointer;
@@ -163,10 +170,11 @@ h1 {
 }
 
 .todoCompleted__div {
-    background-color: rgb(224, 232, 245);
+    background-color: rgb(255, 255, 255);
     margin-bottom: .5rem;
     display: flex;
-    align-items: center;
+    height: 2.5rem;
+    align-items: stretch;
     animation: fadeIn ease 1s;
 }
 
@@ -174,6 +182,9 @@ h1 {
     text-decoration: line-through;
     color: rgb(0, 0, 0);
     flex: 1 0 auto;
+    display: inline-flex;
+    align-items: center;
+
 }
 
 .todo__checkbox {
@@ -199,7 +210,7 @@ h1 {
     margin: 0 .5rem;
     background-color: rgba(0, 0, 0, 0);
     border: 3px solid rgba(0, 0, 0, 0);
-    outline:none;
+    outline: none;
 }
 
 .show__button:hover, .clear__button:hover {

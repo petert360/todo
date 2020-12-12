@@ -294,7 +294,7 @@ function createCompletedSpan(dbObject) {
 function createDeleteBtnElement() {
     const deleteBtnElement = document.createElement('button');
     deleteBtnElement.className = 'todo__deleteButton';
-    deleteBtnElement.innerText = '\u2716';
+    //deleteBtnElement.innerText = '\u2716';
     deleteBtnElement.addEventListener('click', (ev) => {
         // delete todo from db
         let todo = ev.target.previousSibling.innerText;
