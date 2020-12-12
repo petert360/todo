@@ -171,7 +171,7 @@ const dbListHandler = {
 const dateHandler = {
     getCurrentDay: function () {
         let now = new Date();
-        currentDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(now.getDay());
+        let currentDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(now);
         return (currentDay);
     },
     getCurrentDate: function () {
@@ -179,7 +179,7 @@ const dateHandler = {
         let day = now.getDate();
         let month = now.getMonth() + 1;
         let year = now.getFullYear();
-        currentDate = `${month}-${day}-${year}`;
+        let currentDate = `${month}-${day}-${year}`;
         return (currentDate);
     },
 }
@@ -338,8 +338,8 @@ function createCompletedListElement(dbObject) {
 
 /* --- JS INIT --- */
 // A dátum kiírása
-todayElement.innerHTML = dateHandler.getCurrentDay();
-dateElement.innerHTML = dateHandler.getCurrentDate();
+todayElement.innerText = dateHandler.getCurrentDay();
+dateElement.innerText = dateHandler.getCurrentDate();
 
 // DB változó: olyan tömb, ami objektumokat tárol
 // a LS-ban tárolt lista betöltése
