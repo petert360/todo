@@ -145,7 +145,7 @@ const dbHandler = {
         for (let i = todoDB.length - 1; i >= 0; i -= 1) {
             if (!todoDB[i].done) {
                 todoDB.splice(i, 1);
-            } 
+            }
         }
         todoListContainer.innerHTML = '';
         localStorageHandler.store(todoDB);
@@ -330,7 +330,7 @@ function createCompletedListElement(dbObject) {
     const spanElement = createCompletedSpan(dbObject);
     // DELETEBTN
     const deleteBtnElement = createDeleteBtnElement();
-    
+
     // ELEMEK LÉTREHOZÁSA
     todoCompletedContainer.appendChild(todoCompletedDiv);
     todoCompletedDiv.appendChild(checkboxElement);
@@ -342,7 +342,7 @@ function setChillBackground() {
     chillElement.classList.add('chill__element--enable');
     pendingDisplay.classList.add('text__pending--disable')
 };
-function unsetChillBackground () {
+function unsetChillBackground() {
     chillElement.classList.remove('chill__element--enable');
     pendingDisplay.classList.remove('text__pending--disable')
 };
