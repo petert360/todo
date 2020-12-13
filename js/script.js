@@ -247,15 +247,6 @@ function clearAllBtnClickHandler() {
 function createDiv(divName) {
     const todoDiv = document.createElement('div');
     todoDiv.className = divName;
-/*    todoDiv.addEventListener('mouseenter', ev => {
-        todo = ev.target.childNodes[1].innerText;
-        const selectedDeleteBtn = ev.target.lastChild;
-        selectedDeleteBtn.classList.add('todo__deleteButton--active')
-    });
-    todoDiv.addEventListener('mouseleave', ev => {
-        const selectedDeleteBtn = ev.target.lastChild;
-        selectedDeleteBtn.classList.remove('todo__deleteButton--active')
-    });*/
     return todoDiv;
 }
 
@@ -339,7 +330,8 @@ function createCompletedListElement(dbObject) {
     const spanElement = createCompletedSpan(dbObject);
     // DELETEBTN
     const deleteBtnElement = createDeleteBtnElement();
-
+    
+    // ELEMEK LÉTREHOZÁSA
     todoCompletedContainer.appendChild(todoCompletedDiv);
     todoCompletedDiv.appendChild(checkboxElement);
     todoCompletedDiv.appendChild(spanElement);
