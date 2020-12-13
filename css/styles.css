@@ -113,11 +113,39 @@ h1 {
     margin-bottom: .5rem;
 }
 
+.text__pending--disable {
+    display: none;
+}
+
+/* chill képernyő*/
+
+.chill__element {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chill__element--enable {
+    display: flex;
+}
+
+.chill__element__image {
+    width: 6rem;
+}
+
+.chill__element__text {
+    margin: 1rem 0;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: .8rem;
+}
+
 /* generált ToDo lista formázása*/
 
 .todo__div {
     background-color: rgb(224, 232, 245);
-    margin-bottom: .5rem;
+    margin-bottom: .4rem;
     display: flex;
     align-items: stretch;
     animation: fadeIn ease 1s;

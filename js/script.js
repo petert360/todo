@@ -5,6 +5,9 @@ let completedShown = false;
 const todayElement = document.querySelector('.date__dayName');
 const dateElement = document.querySelector('.date__numericDate');
 
+// Pendig section változója
+const chillElement = document.querySelector('.chill__element');
+
 // Pendig szövegmező változója
 const pendingDisplay = document.querySelector('.text__pending');
 
@@ -64,7 +67,12 @@ const dbHandler = {
         let num = 0;
         todoDB.forEach(item => {
             if (!item.done) num += 1;
-        })
+        });
+        if (num === 0) {
+            setChillBackground();
+        } else {
+            unsetChillBackground();
+        };
         return num;
     },
 
@@ -337,6 +345,16 @@ function createCompletedListElement(dbObject) {
     todoCompletedDiv.appendChild(spanElement);
     todoCompletedDiv.appendChild(deleteBtnElement);
 }
+
+function setChillBackground() {
+    chillElement.classList.add('chill__element--enable');
+    pendingDisplay.classList.add('text__pending--disable')
+};
+function unsetChillBackground () {
+    chillElement.classList.remove('chill__element--enable');
+    pendingDisplay.classList.remove('text__pending--disable')
+};
+
 
 /* --- JS INIT --- */
 // A dátum kiírása
